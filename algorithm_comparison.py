@@ -108,7 +108,7 @@ plt.show()
 
 # %%
 N = len(e)
-N_particles = 30
+N_particles = 100
 T = np.round(np.linspace(0, N - 1, N)).astype(int)
 particle_filt = particle_filter.particle_filter(sensor_data = e, N_particles = N_particles)
 
@@ -457,6 +457,7 @@ for i in range(Nr):
         for t in T:
             if t == 50:
                 break
+            #print(estimation, x[t])
             estimation = particle_filt.particle_filtering()
             x_est[t + 1] = estimation[0]
             

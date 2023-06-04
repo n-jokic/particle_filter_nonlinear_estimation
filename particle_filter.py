@@ -78,7 +78,7 @@ class particle_filter():
         
          
     def setSensorData(self, data):
-        self.data = data
+        self.sensor_data = np.array(data)
     
     def setNumberParticles(self, Np):
         self.Np = Np
@@ -104,9 +104,10 @@ class particle_filter():
         
     def particle_filtering(self):
         
-        if self.t > len(self.sensor_data) - 1:
+        if self.t > len(self.sensor_data):
             print('No more sensor data')
             return None
+        
         
         e = self.sensor_data[self.t]
         self.t += 1
@@ -158,7 +159,7 @@ class particle_filter():
         for idx in range(self.Np):
             idy = indices[idx]
             x, v, mu = self.particles[idy].getValues()
-            new_particles[idx] = particle(x = x, v = v,  mu = mu)
+            new_particles[idx] = particle(x = x, v = v,  mu = mu + np.random.rand()*0.005*mu)
            
         return new_particles, new_weights
     
